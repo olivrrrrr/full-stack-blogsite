@@ -15,14 +15,13 @@ loginRouter.post('/', async (req, res) => {
     const username  = req.body.username;
     const passwordHash = req.body.passwordHash; 
 
-    console.log(passwordHash)
     const user = await User.findOne({username});
 
-    console.log(user.passwordHash)
+    // console.log(user.passwordHash)
 
     if(await bcrypt.compare(passwordHash, user.passwordHash)){
         const token = jwt.sign({id: user._id, username: user.username }, process.env.JWT_SECRET)
-        console.log(token, 'hi')
+        console.log(token)
     } else {
         return res.json({status : 'error'})
     }
