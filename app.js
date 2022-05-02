@@ -12,9 +12,11 @@ app.use(cors())
 // Import Routes
 const blogRoute = require('./controllers/blog');
 const userRoute = require('./controllers/user');
+const loginRoute = require('./controllers/login')
 
 app.use('/api/blogs', blogRoute)
 app.use('/api/users', userRoute)
+app.use('/api/login', loginRoute)
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URL,()=>{

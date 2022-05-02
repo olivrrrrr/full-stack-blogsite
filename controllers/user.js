@@ -13,18 +13,29 @@ userRouter.get('/', async (req, res)=>{
     }
 })
 
+
+// POST: create new user 
 userRouter.post('/', async (req, res)=>{
 
   const saltRounds = 10;
-  const passwordHash = await bcrypt.hash(req.body.password, saltRounds);
+  const passwordHash = await bcrypt.hash(req.body.passwordHash, saltRounds);
 
-    const user = new User({
+  // if(!username || !passwordHash || typeof username !== 'string'){
+  //   return res.json({status : 'error'})
+  // }
+
+  try{
+       const user = new User({
         username: req.body.username, 
         passwordHash
     })
 
     const savedUser = await user.save();
     res.json(savedUser);
+  } catch(err){
+      res.json(err.message)
+  }
+   
 
 })
 
