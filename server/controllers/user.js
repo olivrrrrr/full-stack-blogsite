@@ -32,25 +32,26 @@ userRouter.post('/register', async (req, res)=>{
     if(existingUser){
         res.status(400).json({message : "User Already Exists."})
      } else if (req.body.username === undefined || req.body.username.length < 3) {
-      res.status(400).json({ error: "username too short" });
+      res.status(400).json({ error: "Username too short" });
     } else if(req.body.email === undefined || !req.body.email.includes('@')){
-      res.status(400).json({ error: "valid email is required" });
+      res.status(400).json({ error: "Valid email is required" });
     }else if (req.body.password === undefined || req.body.password.length < 3) {
-      res.status(400).json({ error: "password too short" });
+      res.status(400).json({ error: "Password too short" });
     } else {
-        const newUser = new User({
+      
+      const newUser = new User({
         username: req.body.username, 
         email: req.body.email,
-        password: passwordHash
+        password: passwordHash, 
+        blogs: []
       })
     
-    const savedUser = await newUser.save();
-    res.json(savedUser);
+      const savedUser = await newUser.save();
+      res.status(200).json(savedUser);
      }
   } catch(err){
     res.status(400).json(err.message)
   } 
 })
-
 
 module.exports = userRouter; 

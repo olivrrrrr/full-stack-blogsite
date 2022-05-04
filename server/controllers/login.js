@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const express = require('express'); 
 const loginRouter = express.Router();
 const User = require("../models/User"); 
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 require('dotenv/config'); 
 
 
@@ -11,20 +11,24 @@ loginRouter.get('/', function(req, res,) {
 });
 
 loginRouter.post('/', async (req, res) => {
-    // inputted username and password 
-    const username  = req.body.username;
-    const passwordHash = req.body.passwordHash; 
+  // inputted username and password 
+  const username  = req.body.username;
+  const passwordHash = req.body.password; 
 
-    const user = await User.findOne({username});
-
-    // console.log(user.passwordHash)
-
-    if(await bcrypt.compare(passwordHash, user.passwordHash)){
-        const token = jwt.sign({id: user._id, username: user.username }, process.env.JWT_SECRET)
+  try{
+    const existingUser = await User.findOne({ username });
+    
+      if(existingUser && await bcrypt.compare(passwordHash, existingUser.password)){
+        const token = jwt.sign({id: existingUser._id, username: existingUser.username }, process.env.JWT_SECRET)
         console.log(token)
+        res.status(200).json("Login succesful")
     } else {
-        return res.json({status : 'error'})
+        return res.status(404).json({status : 'User does not exist !'})
     }
+  } catch (err){
+      res.json({message: err})
+  }
+
 })
 
 module.exports = loginRouter; 

@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const userSchema = mongoose.Schema({
     username : {type: String, required: true, unique: true},
     email: {type: String, required: true, unique: true},
-    password: {type: String, require: true}
+    password: {type: String, require: true}, 
+    blogs: [{type: mongoose.Types.ObjectId, ref: "blogs"}]
 })
 
 // Export model 

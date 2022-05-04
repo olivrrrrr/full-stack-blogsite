@@ -7,29 +7,56 @@ const User = require('../models/User')
 // GET: all blogs
 blogRouter.get('/', async (req, res) => {
 
-  try {
+try {
     const blogs = await Blog.find({})
-    res.json(blogs)
+    if(blogs){
+      res.json(blogs); 
+    } else {
+      res.status(404).json("No Blogs found"); 
+    }
   } catch (err) {
     res.json({message: err})
   }
-
-    Blog
-    .find({})
-    .then(blogs => {
-      res.json(blogs)
-    })
 })
 
 // GET: blogs by id
 blogRouter.get('/:id', async (req, res, next) => {
   try{  
   const blog = await Blog.findById(req.params.id); 
-  res.json(blog); 
+  if(blog){
+      res.json(blog); 
+    } else {
+      res.status(404).json({message: "Blog not found"}); 
+    }
   } catch(err) {
     res.status(404).json({message: err.message})
   }
 })
+
+// PUT : edit blog
+blogRouter.put('/edit/:id', async (req, res) => {
+
+  const {title, content} = req.body; 
+  const blogId = req.params.id; 
+  let blog; 
+
+  try{  
+    blog = await Blog.findByIdAndUpdate(blogId, {
+      title, 
+      content
+    })
+    if(blog){
+      res.json("Blog updated")
+    } else {
+      res.status(500).json("This blog doesn't exist")
+    }
+
+  } catch (e){
+
+  }
+
+
+}) 
 
 const getTokenFrom = request => {
   const authorization = request.get('authorization')
@@ -40,7 +67,7 @@ const getTokenFrom = request => {
 }
 
 // POST: post a blog whilst logged in
-blogRouter.post('/', async (req, res)=>{
+blogRouter.post('/post', async (req, res)=>{
 
   const token = getTokenFrom(req)
   const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
@@ -64,10 +91,16 @@ blogRouter.post('/', async (req, res)=>{
   }
 });
 
-// DELETE: delete a post 
+// DELETE: delete a blog 
 blogRouter.delete('/:id', async (req, res)=>{
   try {
-    await Blog.findByIdAndDelete(req.params.id); 
+    const blog = await Blog.findByIdAndDelete(req.params.id); 
+    
+    if(blog){
+      res.json({message : "Blog deleted"}); 
+    } else {
+      res.status(404).json("No Blog with this id"); 
+    }
     res.status(204).end()
   } catch (err){ 
     res.status(404).json(err); 

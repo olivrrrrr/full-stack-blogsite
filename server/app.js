@@ -23,4 +23,6 @@ mongoose.connect(process.env.MONGODB_URL,()=>{
     console.log('DB connected')
 })
 
-app.listen(3001)
+app.listen(3002)
+
+module.exports = app;
