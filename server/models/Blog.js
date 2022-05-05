@@ -6,7 +6,7 @@ const blogSchema = new mongoose.Schema({
   content:{type: String},
   author: {type: String},  
   date: {type: Date, default: Date.now}, 
-  user: {type: mongoose.Types.ObjectId, ref: "users"}
+  user: {type: mongoose.Types.ObjectId, ref: "User"}
 })
 
 module.exports = mongoose.model('Blog', blogSchema)

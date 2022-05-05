@@ -1,6 +1,7 @@
 const express = require('express'); 
 const blogRouter = express.Router(); 
 const jwt = require('jsonwebtoken'); 
+const { default: mongoose } = require('mongoose');
 const Blog = require('../models/Blog'); 
 const User = require('../models/User')
 
@@ -10,7 +11,7 @@ blogRouter.get('/', async (req, res) => {
 try {
     const blogs = await Blog.find({})
     if(blogs){
-      res.json(blogs); 
+      res.json(blogs).populate('user'); 
     } else {
       res.status(404).json("No Blogs found"); 
     }
@@ -52,10 +53,8 @@ blogRouter.put('/edit/:id', async (req, res) => {
     }
 
   } catch (e){
-
+    console.log(e); 
   }
-
-
 }) 
 
 const getTokenFrom = request => {
@@ -74,17 +73,22 @@ blogRouter.post('/post', async (req, res)=>{
   if (!decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' })
   }
-  const user = await User.findById(decodedToken.id)
+  const user = await User.findById(decodedToken.id); 
  
+  console.log(user)
+
   const blog = new Blog({
     title: req.body.title,
     content: req.body.content,
-    author: req.body.author
-  })
+    author: req.body.author,
+    user :  user._id
+  }); 
 
   try {
     const savedPost = await blog.save(); 
-    res.status(204).json(savedPost); 
+    user.blogs = user.blogs.concat(savedPost._id)
+    await user.save(); 
+    res.status(204).json({message : "succesful post"}); 
 
   } catch (err) {
     res.status(404).json({message: err})
@@ -94,7 +98,8 @@ blogRouter.post('/post', async (req, res)=>{
 // DELETE: delete a blog 
 blogRouter.delete('/:id', async (req, res)=>{
   try {
-    const blog = await Blog.findByIdAndDelete(req.params.id); 
+    const blog = await Blog.findByIdAndDelete(req.params.id).populate("user"); 
+    await blog.user.blogs.pull(blog)
     
     if(blog){
       res.json({message : "Blog deleted"}); 

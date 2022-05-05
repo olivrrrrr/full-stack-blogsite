@@ -9,7 +9,7 @@ const User = require('../models/User')
 userRouter.get('/all', async (req, res)=>{
    
     try{
-        let users = await User.find({});
+        let users = await User.find({}).populate('blogs');
         if(!users){
             res.status(404).json({message: "No Users Found"})
         } else {
