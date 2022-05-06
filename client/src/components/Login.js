@@ -8,7 +8,8 @@ function Login() {
     const [password, setPassword] = useState('');
 
     const login = (user) => { 
-    axios.post("http://localhost:3001/api/login", user)
+    axios.post("http://localhost:3002/api/login", user)
+    // .then(navigate("/userpage"))
     .catch(()=> alert('error adding user'))
     }
 
@@ -18,7 +19,7 @@ function Login() {
 
         const user = {
             username: username, 
-            passwordHash: password
+            password: password
         }
 
         login(user)

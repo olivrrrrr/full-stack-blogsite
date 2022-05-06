@@ -37,23 +37,24 @@ blogRouter.get('/:id', async (req, res, next) => {
 // PUT : edit blog
 blogRouter.put('/edit/:id', async (req, res) => {
 
-  const {title, content} = req.body; 
-  const blogId = req.params.id; 
-  let blog; 
+  const {title, content, author} = req.body; 
+  const blogId = req.params.id;  
 
   try{  
-    blog = await Blog.findByIdAndUpdate(blogId, {
+    const blog = await Blog.findByIdAndUpdate(blogId, {
       title, 
       content
     })
-    if(blog){
-      res.json("Blog updated")
+    if(blog && author === undefined){
+      res.json("Blog updated"); 
+    }  else if(blog && author !== undefined) {
+      res.status(400).json("This attribute cannot be changed")
     } else {
       res.status(500).json("This blog doesn't exist")
     }
 
-  } catch (e){
-    console.log(e); 
+  } catch (err){
+    res.status(404).json({message: err.message})
   }
 }) 
 
@@ -75,7 +76,7 @@ blogRouter.post('/post', async (req, res)=>{
   }
   const user = await User.findById(decodedToken.id); 
  
-  console.log(user)
+  // console.log(user)
 
   const blog = new Blog({
     title: req.body.title,
@@ -91,7 +92,7 @@ blogRouter.post('/post', async (req, res)=>{
     res.status(204).json({message : "succesful post"}); 
 
   } catch (err) {
-    res.status(404).json({message: err})
+    res.status(404).json({message: err.message})
   }
 });
 
