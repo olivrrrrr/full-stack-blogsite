@@ -12,11 +12,11 @@ loginRouter.get('/', function(req, res,) {
 
 loginRouter.post('/', async (req, res) => {
   // inputted username and password 
-  const username  = req.body.username;
+  const email = req.body.email;
   const passwordHash = req.body.password; 
 
   try{
-    const existingUser = await User.findOne({ username });
+    const existingUser = await User.findOne({ email });
     
       if(existingUser && await bcrypt.compare(passwordHash, existingUser.password)){
         const token = jwt.sign({id: existingUser._id, username: existingUser.username }, process.env.JWT_SECRET)
