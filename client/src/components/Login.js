@@ -5,13 +5,17 @@ import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const navigate = useNavigate(); 
-    const [username, setUsername] = useState(''); 
+    const [email, setEmail] = useState(''); 
     const [password, setPassword] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
     const login = (user) => { 
     axios.post("http://localhost:3002/api/login", user)
-    .then(()=>navigate("/"))
+    .then(()=>{
+      navigate("/");
+    })
     .catch(()=> alert('error loggging in'))
+    
     }
 
 
@@ -19,24 +23,15 @@ function Login() {
         e.preventDefault(); 
 
         const user = {
-            username: username, 
+            email: email, 
             password: password
         }
 
         login(user)
-
     }
 
 
   return (
-    // <div>
-    //   <h1>Login</h1>
-    //   <form onSubmit={handleFormSubmission}>
-    //     <input value={username} onChange={(e)=> setUsername(e.target.value)} type="username" placeholder="username" /> 
-    //     <input value={password} onChange={(e)=> setPassword(e.target.value)} type="password" placeholder="password" /> 
-    //     <input type="submit" value="Login"/>
-    //   </form> 
-    // </div>
       <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-orange-500">Sign in to your account</h2>
@@ -45,7 +40,7 @@ function Login() {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" onSubmit={handleFormSubmission} method="POST">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                   Email address
@@ -54,6 +49,8 @@ function Login() {
                   <input
                     id="email"
                     name="email"
+                    value={email} 
+                    onChange={(e)=> setEmail(e.target.value)} 
                     type="email"
                     autoComplete="email"
                     required
@@ -70,6 +67,8 @@ function Login() {
                   <input
                     id="password"
                     name="password"
+                    value={password} 
+                    onChange={(e)=> setPassword(e.target.value)}
                     type="password"
                     autoComplete="current-password"
                     required
