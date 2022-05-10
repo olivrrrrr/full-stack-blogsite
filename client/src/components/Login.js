@@ -1,37 +1,84 @@
-import {React, useState} from 'react'
+import {React, useEffect, useState, useContext} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-
+import { AuthContext } from "../App";
 
 function Login() {
     const navigate = useNavigate(); 
-    const [email, setEmail] = useState(''); 
-    const [password, setPassword] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false); 
-
-    const login = (user) => { 
-    axios.post("http://localhost:3002/api/login", user)
-    .then(()=>{
-      navigate("/");
-    })
-    .catch(()=> alert('error loggging in'))
     
-    }
+    const initialState = {
+      email: "",
+      password: "",
+      isSubmitting: false,
+      errorMessage: null
+    };
+
+    const [data, setData] = useState(initialState);
+    // const [email, setEmail] = useState(''); 
+    // const [password, setPassword] = useState('');
+   
+    const { dispatch } = useContext(AuthContext);
+ 
+  
+  
+  const handleInputChange = event => {
+      setData({
+        ...data,
+        [event.target.name]: event.target.value
+      });
+    };
 
 
+    // const login = (user) => { 
+    //   axios.post("http://localhost:3002/api/login", user)
+    //     .then(()=>{
+    //       navigate("/");
+    //     }).
+    //     then(resJson => {
+    //     dispatch({
+    //         type: "LOGIN",
+    //         payload: resJson
+    //     })
+    //   })
+    //     .catch(()=> alert('error loggging in'))    
+    // }
+    
     const handleFormSubmission = (e) => {
         e.preventDefault(); 
 
+        setData({
+          ...data,
+          isSubmitting: true,
+          errorMessage: null
+        });
+
         const user = {
-            email: email, 
-            password: password
+            email: data.email, 
+            password: data.password
         }
 
-        login(user)
+        axios.post("http://localhost:3002/api/login", user)
+        .then((res)=>{
+          console.log(res)
+           dispatch({
+            type: "LOGIN",
+            payload: res
+        })
+          navigate("/");
+        })
+        .catch((error)=> {
+        alert('error loggging in')
+           setData({
+          ...data,
+          isSubmitting: false,
+          errorMessage: error.message || error.statusText
+        });
+      })    
     }
 
 
   return (
+
       <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-orange-500">Sign in to your account</h2>
@@ -49,8 +96,8 @@ function Login() {
                   <input
                     id="email"
                     name="email"
-                    value={email} 
-                    onChange={(e)=> setEmail(e.target.value)} 
+                    value={data.email} 
+                    onChange={handleInputChange} 
                     type="email"
                     autoComplete="email"
                     required
@@ -67,8 +114,8 @@ function Login() {
                   <input
                     id="password"
                     name="password"
-                    value={password} 
-                    onChange={(e)=> setPassword(e.target.value)}
+                    value={data.password} 
+                    onChange={handleInputChange}
                     type="password"
                     autoComplete="current-password"
                     required

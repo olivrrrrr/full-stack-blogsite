@@ -53,7 +53,7 @@ import React, { useEffect, useState } from 'react'
 const posts = [
   {
     title: 'Boost your conversion rate',
-    href: '#',
+    href: '/blog',
     category: { name: 'Article', href: '#' },
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, ut atque fuga culpa, similique sequi cum eos quis dolorum.',
@@ -108,6 +108,13 @@ const posts = [
 ]
 
 function Home() {
+
+  const [onClick, setOnClick] = useState(false)
+
+  const handleOnClick = () => {
+
+  }
+
   return (
     <div className="relative pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
       <div className="absolute inset-0">

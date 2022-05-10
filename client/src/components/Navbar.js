@@ -9,8 +9,11 @@ function classNames(...classes) {
 }
 
 function Header() {
+
   return (
-    <Disclosure as="nav" className="bg-white shadow">
+   
+    <>
+      <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -38,7 +41,7 @@ function Header() {
                     src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
                     alt="Workflow"
                   /> */}
-                  <h2 className="text-orange-500"><a className="no-underline text-inherit hover:text-orange-700" href="/" >Blogsite</a></h2>
+                  <h1 className="text-orange-500 text-2xl"><a className="no-underline text-inherit hover:text-orange-700" href="/" >Blogsite</a></h1>
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 left-0">
                   {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
@@ -174,7 +177,8 @@ function Header() {
           </Disclosure.Panel>
         </>
       )}
-    </Disclosure>
+    </Disclosure> 
+    </>
   )
 }
 
