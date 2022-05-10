@@ -9,6 +9,7 @@ import Dashboard from './components/Dashboard'
 import UserBlogs from './components/UserBlogs'
 import PostBlog from './components/PostBlog';
 import Logout from './components/Logout';
+import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = React.createContext()
 
@@ -16,7 +17,7 @@ const initialState = {
   isAuthenticatied: false, 
   user: null, 
   token: null
-}
+} 
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -30,12 +31,12 @@ const reducer = (state, action) => {
         token: action.payload.token
       };
     case "LOGOUT":
-      localStorage.clear();
       return {
         ...state,
         isAuthenticated: false,
         user: null
       };
+      
     default:
       return state;
   }
@@ -56,6 +57,7 @@ function App() {
           user,
           token
         }
+
       })
     }
   }, [])
