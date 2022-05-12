@@ -11,12 +11,12 @@ blogRouter.get('/', async (req, res) => {
 try {
     const blogs = await Blog.find({})
     if(blogs){
-      res.json(blogs).populate('user'); 
+       res.json(blogs).populate('user'); 
     } else {
-      res.status(404).json("No Blogs found"); 
+      return res.status(404).json("No Blogs found"); 
     }
   } catch (err) {
-    res.json({message: err})
+     // return res.status(500).json({message: err})
   }
 })
 

@@ -21,6 +21,39 @@ userRouter.get('/all', async (req, res)=>{
     
 })
 
+// GET : all users
+userRouter.get('/all', async (req, res)=>{
+   
+    try{
+        let users = await User.find({}).populate('blogs');
+        if(!users){
+            res.status(404).json({message: "No Users Found"})
+        } else {
+            res.json(users)
+        }    
+    } catch (err){
+        res.status(404).json({message : err}); 
+    }
+    
+})
+
+// GET : user by ID
+userRouter.get('/:id', async (req, res)=>{
+   try{  
+  const user = await User.findById(req.params.id).populate('blogs');
+  if(user){
+      res.json(user); 
+    } else {
+      res.status(404).json({message: "User not found"}); 
+    }
+  } catch(err) {
+    res.status(404).json({message: err.message})
+  }
+    
+})
+
+
+
 // POST: create new user 
 userRouter.post('/register', async (req, res)=>{
   
