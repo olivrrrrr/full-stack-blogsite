@@ -22,13 +22,14 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
-      localStorage.setItem("user", JSON.stringify(action.payload.user));
-      localStorage.setItem("token", JSON.stringify(action.payload.token));
+     // console.log()
+      // localStorage.setItem("user", action.payload.data);
+      // localStorage.setItem("token", action.payload.token);
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload.user,
-        token: action.payload.token
+        // user: action.payload.user,
+        // token: action.payload.token
       };
     case "LOGOUT":
       return {
@@ -51,6 +52,7 @@ function App() {
     const token = localStorage.getItem('token') || null
 
     if(user && token){
+    
       dispatch({
         type: 'LOGIN',
         payload: {
@@ -75,7 +77,7 @@ function App() {
           {/* <Route path="/dashboard" element={<Dashboard />}/> */}
           <Route path="/register" element={<Register />}/>
           <Route path="/login" element={<Login/>}/>
-          <Route path="/myBlogs/:id" element={<UserBlogs />}/>
+          <Route path="/myBlogs/" element={<UserBlogs />}/>
           <Route path="/post" element={<PostBlog />}/>
            </Routes>
       </BrowserRouter>

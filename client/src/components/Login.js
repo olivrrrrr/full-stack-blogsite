@@ -59,12 +59,19 @@ function Login() {
 
         axios.post("http://localhost:3002/api/login", user)
         .then((res)=>{
-          console.log(res)
+          localStorage.setItem("user", res.data.user._id);
+          console.log(res.data.user)
+      // localStorage.setItem("token", action.payload.token);
+        })
+        .then(()=>{
+        
            dispatch({
             type: "LOGIN",
-            payload: res
         })
-          navigate("/");
+          // localStorage.setItem("user", res.user._id)
+        })
+        .then(()=>{
+            navigate("/");
         })
         .catch((error)=> {
         alert('error loggging in')
