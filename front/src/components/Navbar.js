@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import {Link} from 'react-router-dom'
 
 function Navbar() {
-  
+
   const isLoggedIn = useSelector(state => state.isLoggedIn)
 
   return (
@@ -16,16 +16,16 @@ function Navbar() {
         <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </div>
-     {!isLoggedIn && <div className="text-center">
-         <Link className="p-4" to="/login">
+     {!isLoggedIn && <div className="text-center hover:bg-orange-700">
+         <Link className="p-4 hover:bg-orange-700" to="/login">
               My Blog
           </Link>
-          <Link className="p-4" to="/addblog">
+          <Link className="p-4 hover:bg-orange-700" to="/addblog">
               Add Blog 
           </Link>
         </div>}
       <div className="pr-8 md:block hidden">
-        <Link className="p-4" to="/login">
+        <Link className="p-4" to="/userBlog">
             Login
         </Link>
         <Link className="p-4 w-full items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 no-underline " to="/register">
