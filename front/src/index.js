@@ -8,6 +8,9 @@ import { store } from './store';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import Register from '../src/components/Register';
 import Login from '../src/components/Login';
+import UserBlogs from '../src/components/UserBlogs';
+import AllBlogs from '../src/components/AllBlogs';
+import AddBlog from '../src/components/AddBlog';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,7 +21,10 @@ root.render(
         <App />
         <Routes>
           <Route path="/register" element={<Register />}/>
-           <Route path="/login" element={<Login />}/>
+          <Route path="/myblogs/:id" element={<UserBlogs />}/>
+          <Route path="/addblog" element={<AddBlog />}/>
+          <Route path="/login" element={<Login />}/>
+          <Route path="/allblogs" element={<AllBlogs />}/>
         </Routes>
       </BrowserRouter>
     </Provider>

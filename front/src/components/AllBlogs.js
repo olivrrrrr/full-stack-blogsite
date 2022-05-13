@@ -1,16 +1,16 @@
 import React, { useEffect, useState} from 'react'
 import axios from 'axios'
 
-function UserBlogs() {
+function AllBlogs() {
     const id = localStorage.getItem("user")
     const [blogs, setBlogs] = useState()
 
     useEffect(() =>{
         axios
-        .get(`http://localhost:3002/api/users/${id}`)
+        .get(`http://localhost:3002/api/blogs`)
         .then((res)=>{
-            console.log(res.data.blogs)
-            setBlogs(res.data.blogs)
+            console.log(res.data)
+            setBlogs(res.data)
         })
         .catch(err=>{
             console.log(err)
@@ -25,7 +25,7 @@ function UserBlogs() {
                 </div>
         }) :
             <div>
-                hi
+            {" "}
             </div>
         }
 
@@ -33,4 +33,4 @@ function UserBlogs() {
   )
 }
 
-export default UserBlogs
+export default AllBlogs

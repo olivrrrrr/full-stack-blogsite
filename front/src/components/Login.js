@@ -63,8 +63,8 @@ function Login() {
         axios.post("http://localhost:3002/api/login", user)
         .then((res)=>{
           localStorage.setItem("user", res.data.user._id);
-          console.log(res.data.user)
-      // localStorage.setItem("token", action.payload.token);
+          console.log(res.data.token)
+          localStorage.setItem("token", res.data.token);
         })
         .then(()=>{
           dispatch(authActions.login())
@@ -85,7 +85,7 @@ function Login() {
 
   return (
 
-      <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-mono">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-orange-500">Sign in to your account</h2>
          
