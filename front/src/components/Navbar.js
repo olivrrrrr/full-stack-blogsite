@@ -1,10 +1,11 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import {Link} from 'react-router-dom'
+import React from 'react'; 
+import { useSelector, useDispatch} from 'react-redux'; 
+import {Link} from 'react-router-dom'; 
+import { authActions } from '../store';
 
 function Navbar() {
-
-  const isLoggedIn = useSelector(state => state.isLoggedIn)
+  const dispatch = useDispatch(); 
+  const isLoggedIn = useSelector(state => state.isLoggedIn); 
 
   return (
     <nav className="flex justify-between items-center h-16 bg-white relative shadow-sm font-mono">
@@ -16,21 +17,33 @@ function Navbar() {
         <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </div>
-     {!isLoggedIn && <div className="text-center hover:bg-orange-700">
-         <Link className="p-4 hover:bg-orange-700" to="/login">
+       {isLoggedIn && <div className=" md:block hidden text-center">
+           <Link className="p-4 hover:underline" to="/allblogs">
+              All Blogs
+          </Link>
+         <Link className="p-4 hover:underline" to="/myblogs/:id">
               My Blog
           </Link>
-          <Link className="p-4 hover:bg-orange-700" to="/addblog">
+          <Link className="p-4 hover:underline" to="/addblog">
               Add Blog 
           </Link>
         </div>}
       <div className="pr-8 md:block hidden">
-        <Link className="p-4" to="/userBlog">
+     {!isLoggedIn &&
+        <Link className="p-4" to="/login">
             Login
-        </Link>
+        </Link>}
+       {!isLoggedIn &&
         <Link className="p-4 w-full items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 no-underline " to="/register">
             Register
-        </Link>
+        </Link>}
+        {isLoggedIn &&  
+         <Link 
+         onClick={()=>dispatch(authActions.logout())}
+         className="p-4 w-full items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 no-underline " 
+         to="/login">
+           Logout
+        </Link>}
       </div>
     </nav>  
   )
