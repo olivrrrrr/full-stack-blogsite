@@ -5,7 +5,7 @@ function AddBlog() {
 
   const [title, setTitle] = useState(''); 
   const [content, setContent] = useState(''); 
-  const [password, setPassword] = useState(''); 
+  const [picture, setPicture] = useState(''); 
 
 
 const handleFormSubmission = (e) =>{ 
@@ -18,15 +18,23 @@ const handleFormSubmission = (e) =>{
 
     const blog = {
         title: title, 
-        content: content 
+        content: content,
+        picture: picture
     }
 
      axios
-        .post('http://localhost:3002/api/blogs/post', blog, config)
+        .post('http://localhost:3002/api/blogs/post',
+        {
+        title: title, 
+        content: content,
+        picture: picture
+        }
+        , config)
         .then(res=> console.log(res))
         .catch(err=> console.log(err))
 
         setContent(""); 
+        setPicture("")
         setTitle(""); 
 }
 
@@ -36,7 +44,7 @@ return (
         <div className="m-auto max-w-5xl mx-auto px-6 sm:px-6 lg:px-8 mb-12">
             <div className="bg-white w-full shadow rounded p-8 sm:p-12 -mt-72">
                 <p className="text-3xl font-bold leading-7 text-center">Add Blog</p>
-                <form onSubmit={handleFormSubmission} method="POST">
+                <form onSubmit={handleFormSubmission} method="">
                     <div className="md:flex items-center mt-12">
                         <div className="w-full md:w-1/2 flex flex-col">
                             <label className="font-semibold leading-none">Title</label>
@@ -50,7 +58,7 @@ return (
                     <div className="md:flex items-center mt-8">
                         <div className="w-full flex flex-col">
                             <label className="font-semibold leading-none">Picture</label>
-                            <input type="text" className="leading-none text-gray-900 p-3 focus:outline-none focus:border-orange-500 mt-4 bg-orange-100 border rounded border-gray-200"/>
+                            <input type="text" value={picture} onChange={(e)=>{setPicture(e.target.value)}} className="leading-none text-gray-900 p-3 focus:outline-none focus:border-orange-500 mt-4 bg-orange-100 border rounded border-gray-200"/>
                         </div>
                     </div>
                     <div>
