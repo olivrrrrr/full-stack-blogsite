@@ -11,6 +11,7 @@ import Login from '../src/components/Login';
 import UserBlogs from '../src/components/UserBlogs';
 import AllBlogs from '../src/components/AllBlogs';
 import AddBlog from '../src/components/AddBlog';
+import IndividualBlog from './components/IndividualBlog';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -25,6 +26,7 @@ root.render(
           <Route path="/addblog" element={<AddBlog />}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/allblogs" element={<AllBlogs />}/>
+          <Route path="/blogs/:id" element={<IndividualBlog />}/>
         </Routes>
       </BrowserRouter>
     </Provider>

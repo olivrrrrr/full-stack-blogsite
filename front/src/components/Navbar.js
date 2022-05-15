@@ -6,6 +6,7 @@ import { authActions } from '../store';
 function Navbar() {
   const dispatch = useDispatch(); 
   const isLoggedIn = useSelector(state => state.isLoggedIn); 
+  console.log(isLoggedIn)
 
   return (
     <nav className="flex justify-between items-center h-16 bg-white relative shadow-sm font-mono">
