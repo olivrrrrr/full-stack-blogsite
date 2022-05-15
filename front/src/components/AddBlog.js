@@ -6,6 +6,7 @@ function AddBlog() {
   const [title, setTitle] = useState(''); 
   const [content, setContent] = useState(''); 
   const [picture, setPicture] = useState(''); 
+  const [summary, setSummary] = useState(''); 
 
 
 const handleFormSubmission = (e) =>{ 
@@ -18,24 +19,22 @@ const handleFormSubmission = (e) =>{
 
     const blog = {
         title: title, 
+        summary: summary, 
         content: content,
         picture: picture
     }
 
      axios
         .post('http://localhost:3002/api/blogs/post',
-        {
-        title: title, 
-        content: content,
-        picture: picture
-        }
+        blog
         , config)
         .then(res=> console.log(res))
         .catch(err=> console.log(err))
 
         setContent(""); 
-        setPicture("")
+        setPicture(""); 
         setTitle(""); 
+        setSummary("")
 }
 
 
@@ -51,8 +50,8 @@ return (
                             <input type="text" value={title} onChange={(e)=>{setTitle(e.target.value)}} className="leading-none text-gray-900 p-3 focus:outline-none focus:border-orange-500 mt-4 bg-orange-100 border rounded border-gray-200" />
                         </div>
                         <div className="w-full md:w-1/2 flex flex-col md:ml-6 md:mt-0 mt-4">
-                            <label className="font-semibold leading-none">Phone</label>
-                            <input type="email" className="leading-none text-gray-900 p-3 focus:outline-none focus:border-orange-500 mt-4 bg-orange-100 border rounded border-gray-200"/>
+                            <label className="font-semibold leading-none">Summary</label>
+                            <input type="text" value={summary} onChange={(e)=>setSummary(e.target.value)} className="leading-none text-gray-900 p-3 focus:outline-none focus:border-orange-500 mt-4 bg-orange-100 border rounded border-gray-200"/>
                         </div>
                     </div>
                     <div className="md:flex items-center mt-8">

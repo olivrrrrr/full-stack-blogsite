@@ -31,7 +31,7 @@ function AllBlogs() {
                         <div className="flex-1">
                              <a href={'#'} className="block mt-2 no-underline">
                                     <p className="text-xl font-semibold text-orange-600 hover:underline">{blog.title}</p>
-                                    <p className="mt-3 text-base text-gray-500 no-underline">{blog.content}</p>
+                                    <p className="mt-3 text-base text-gray-500 no-underline">{blog.summary ? blog.summary.split(" ").splice(0,10).join(" ") : blog.summary}...</p>
                              </a>
                         </div>
                     </div>
