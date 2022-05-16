@@ -75,6 +75,21 @@ return (
             </div>
         </div>
     </div>
+
+    // <div className="w-full mx-auto">
+    //      <form onSubmit={handleFormSubmission} className="grid justify-center p-16 space-y-3">
+    //         <input type="text" placeholder="Title..." value={title} onChange={(e)=>{setTitle(e.target.value)}} className="py-3 px-5 border-none  focus:outline-none text-4xl" />
+    //         <input type="text" placeholder='What is on your mind..?' value={content} onChange={(e)=>{setContent(e.target.value)}} className="border-none focus:outline-none text-2xl"/>
+    //      </form>
+    //      <div className="w-full">
+    //         <button className="mt-9 font-semibold leading-none text-white py-4 px-10 bg-orange-500 rounded hover:bg-orange-700 focus:ring-2 focus:ring-offset-2 focus:ring-orange-700 focus:outline-none">
+    //         Publish
+    //         </button>
+    //         <button className="mt-9 font-semibold leading-none text-white py-4 px-10 bg-orange-500 rounded hover:bg-orange-700 focus:ring-2 focus:ring-offset-2 focus:ring-orange-700 focus:outline-none">
+    //             +
+    //         </button>
+    //      </div>
+    // </div>
   )
 }
 

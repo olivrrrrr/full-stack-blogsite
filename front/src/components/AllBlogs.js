@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 
 function AllBlogs() {
     // const id = localStorage.getItem("user")
-    const [blogs, setBlogs] = useState()
+    const [blogs, setBlogs] = useState(); 
+   
 
     useEffect(() =>{
         axios
@@ -17,12 +18,11 @@ function AllBlogs() {
             console.log(err)
         })
     }, [])
+
+    console.log(blogs)
     
   return (
-    <div className="relative pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
-      <div className="absolute inset-0">
-        <div className="bg-white h-1/3 sm:h-2/3" />
-      </div>
+  
     <div className="relative max-w-7xl mx-auto">
         <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
         {blogs ? blogs.map(blog=>{
@@ -40,19 +40,19 @@ function AllBlogs() {
                   
                
                   
-                    <p className="text-sm font-medium text-orange-600">
-                      <h8 className="no-underline text-inherit">
+                    <div className="text-sm font-medium text-orange-600">
+                      <p className="no-underline text-inherit">
                         {blog.name}
-                      </h8>
-                    </p>
-        
+                      </p>
+                    </div>
+                
+                <div className="mt-6 flex items-center">
                   <div className="flex-shrink-0">
                     <a href={'#'}>
                       <span className="sr-only">{blog.name}</span>
-                      {/* <img className="h-10 w-10 rounded-full" src={post.author.imageUrl} alt="" /> */}
-                    </a>
+                    <img className="h-12 w-12 rounded-full" src={'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'} alt="" /> 
+                     </a>  
                   </div>
-                 <div className="mt-6 flex items-center">
                   <div className="ml-0">
                     <p className="text-sm font-medium text-orange-600">
                       <a href={'#'} className="hover:underline">
@@ -60,7 +60,7 @@ function AllBlogs() {
                       </a>
                     </p>
                     <div className="flex space-x-1 text-sm text-gray-500">
-                      <time>{new Date(blog.date).toDateString()}</time>
+                      <time>{new Date(blog.date).toDateString().split(' ')[1] + ' ' + new Date(blog.date).toDateString().split(' ')[2] + ' ' + new Date(blog.date).toDateString().split(' ')[3]}</time>
                       {/* <span aria-hidden="true">&middot;</span> */}
                       {/* <span>{post.readingTime} read</span> */}
                     </div>
@@ -75,7 +75,7 @@ function AllBlogs() {
         }
            </div>
         </div>
-    </div>
+  
   )
 }
 

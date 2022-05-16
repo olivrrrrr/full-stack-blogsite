@@ -7,7 +7,8 @@ import { useLocation } from "react-router";
 function IndividualBlog() {
 
     const [individualBlog, setIndividualBlog ] = useState(''); 
-    const [username, setUsername] = useState('')
+     const [editMode, Edit] = useState(false); 
+    const [username, setUsername] = useState('');
    
     const location = useLocation();
     const path = location.pathname.split("/")[2];
