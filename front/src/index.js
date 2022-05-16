@@ -12,6 +12,7 @@ import UserBlogs from '../src/components/UserBlogs';
 import AllBlogs from '../src/components/AllBlogs';
 import AddBlog from '../src/components/AddBlog';
 import IndividualBlog from './components/IndividualBlog';
+import Settings from './components/Settings';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -27,6 +28,7 @@ root.render(
           <Route path="/login" element={<Login />}/>
           <Route path="/allblogs" element={<AllBlogs />}/>
           <Route path="/blogs/:id" element={<IndividualBlog />}/>
+           <Route path="/user/:id" element={<Settings />}/>
         </Routes>
       </BrowserRouter>
     </Provider>

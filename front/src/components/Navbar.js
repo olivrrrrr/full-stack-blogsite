@@ -1,4 +1,5 @@
-import React from 'react'; 
+import axios from 'axios';
+import React, {useEffect, useState} from 'react'; 
 import { useSelector, useDispatch} from 'react-redux'; 
 import {Link} from 'react-router-dom'; 
 import { authActions } from '../store';
@@ -6,7 +7,19 @@ import { authActions } from '../store';
 function Navbar() {
   const dispatch = useDispatch(); 
   const isLoggedIn = useSelector(state => state.isLoggedIn); 
-  console.log(isLoggedIn)
+  const user = useSelector(state => state.user)
+  console.log(user);
+  // const userID = localStorage.getItem("user"); 
+  const [username, setUsername] = useState('')
+
+  useEffect(()=>{
+    if(user !== null ){
+    axios
+      .get(`http://localhost:3002/api/users/${localStorage.getItem('user')}`)
+      .then(res=>{setUsername(res.data.username)})
+      .catch(err=>console.log(err))
+    }
+  }, [])
 
   return (
     <nav className="flex justify-between items-center h-16 bg-white relative shadow-sm font-mono">
@@ -20,13 +33,13 @@ function Navbar() {
       </div>
        {isLoggedIn && <div className=" md:block hidden text-center">
            <Link className="p-4 hover:underline" to="/allblogs">
-              All Blogs
+              Home
           </Link>
          <Link className="p-4 hover:underline" to="/myblogs/:id">
-              My Blog
+              My Blogs
           </Link>
           <Link className="p-4 hover:underline" to="/addblog">
-              Add Blog 
+              Write
           </Link>
         </div>}
       <div className="pr-8 md:block hidden">
@@ -38,13 +51,24 @@ function Navbar() {
         <Link className="p-4 w-full items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 no-underline " to="/register">
             Register
         </Link>}
-        {isLoggedIn &&  
-         <Link 
-         onClick={()=>dispatch(authActions.logout())}
-         className="p-4 w-full items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 no-underline " 
-         to="/login">
-           Logout
-        </Link>}
+          {/* {isLoggedIn &&
+          <Link to={localStorage.getItem("user")}>
+            {username}
+          </Link> 
+        } */}
+        {isLoggedIn && 
+        <div>
+            <Link to={`user/${user}`}>
+                {username}
+            </Link> 
+            <Link 
+            onClick={()=>dispatch(authActions.logout())}
+            className="p-4 w-full items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 no-underline " 
+            to="/login">
+              Logout
+            </Link>
+        </div>
+        }
       </div>
     </nav>  
   )

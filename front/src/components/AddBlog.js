@@ -68,7 +68,7 @@ return (
                     </div>
                     <div className="flex items-center justify-center w-full">
                         <button className="mt-9 font-semibold leading-none text-white py-4 px-10 bg-orange-500 rounded hover:bg-orange-700 focus:ring-2 focus:ring-offset-2 focus:ring-orange-700 focus:outline-none">
-                            Submit Post
+                            Publish
                         </button>
                     </div>
                 </form>
