@@ -20,11 +20,15 @@ function UserBlogs() {
     
   return (
     <div>
-        {blogs.map(blog=>{
-               return <div>
+        {blogs ? blogs.map(blog=>{
+               return <div key={blog._id}>
                     {blog.title}
                 </div>
-        })}
+        }) :
+            <div>
+                hi
+            </div>
+        }
 
     </div>
   )

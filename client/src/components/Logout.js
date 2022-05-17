@@ -1,9 +1,11 @@
 import React from 'react'
 import { AuthContext } from "../App";
-
 // import { useNavigate } from 'react-router-dom';
 
 function Logout() {
+
+  // const navigate = useNavigate();
+
   const { state, dispatch } = React.useContext(AuthContext);
   
 
@@ -19,6 +21,10 @@ function Logout() {
           <h1>Hi (LOGOUT)</h1>
         )} */}
       </button>
+
+       {/* <button  onClick={handleOnUserBlog}>
+          My Blog
+      </button> */}
     </div>
   )
 }

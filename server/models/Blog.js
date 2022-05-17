@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const blogSchema = new mongoose.Schema({
   title: {type: String},
   content:{type: String},
+  summary:{type:String}, 
+  picture: {type: String},
   author: {type: String},  
   date: {type: Date, default: Date.now}, 
   user: {type: mongoose.Types.ObjectId, ref: "User"}

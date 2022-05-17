@@ -20,7 +20,7 @@ try {
   }
 })
 
-// GET: blogs by id
+// GET: blog by id
 blogRouter.get('/:id', async (req, res, next) => {
   try{  
   const blog = await Blog.findById(req.params.id); 
@@ -80,15 +80,18 @@ blogRouter.post('/post', async (req, res)=>{
 
   const blog = new Blog({
     title: req.body.title,
+    summary: req.body.summary, 
     content: req.body.content,
-    author: req.body.author,
-    user :  user._id
+    picture: req.body.picture,
+    author: user.username,
+    user :  user
   }); 
 
   try {
     const savedPost = await blog.save(); 
     user.blogs = user.blogs.concat(savedPost._id)
     await user.save(); 
+    console.log(savedPost); 
     res.status(204).json({message : "succesful post"}); 
 
   } catch (err) {

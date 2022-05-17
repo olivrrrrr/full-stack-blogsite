@@ -36,10 +36,7 @@ function AllBlogs() {
                             <p className="text-xl font-semibold text-orange-600 hover:underline">{blog.title}</p>
                             <p className="mt-3 text-base text-gray-500 no-underline">{blog.content ? blog.content.split(" ").splice(0,20).join(" ") : blog.content}...</p>
                           </Link>       
-                        </div>
-                  
-               
-                  
+                        </div>      
                     <div className="text-sm font-medium text-orange-600">
                       <p className="no-underline text-inherit">
                         {blog.name}
@@ -50,7 +47,7 @@ function AllBlogs() {
                   <div className="flex-shrink-0">
                     <a href={'#'}>
                       <span className="sr-only">{blog.name}</span>
-                    <img className="h-12 w-12 rounded-full" src={'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'} alt="" /> 
+                    {/* <img className="h-12 w-12 rounded-full" src={blog.user.picture} alt="" />  */}
                      </a>  
                   </div>
                   <div className="ml-0">

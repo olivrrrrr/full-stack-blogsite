@@ -3,9 +3,9 @@ import React from 'react'
 function AddBlog() {
   return (
     <div>
-      <div>
-        <input type="text" />
-      </div>
+        <form>
+            <input></input>
+        </form>
     </div>
   )
 }
