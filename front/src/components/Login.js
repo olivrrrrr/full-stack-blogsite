@@ -1,11 +1,13 @@
 import {React, useEffect, useState, useContext} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../store';
 // mport { AuthContext } from "../App";
-
+// import { login } from '../store/index'
 function Login() {
+
+    const user = useSelector((state)=> state.user); 
     const dispatch = useDispatch(); 
     const navigate = useNavigate(); 
     
@@ -63,12 +65,14 @@ function Login() {
         axios.post("http://localhost:3002/api/login", user)
         .then((res)=>{
           localStorage.setItem("user", res.data.user._id);
-          console.log(res.data.token)
+          localStorage.setItem("userObject", JSON.stringify(res.data));
+          dispatch(authActions.login(res.data))
           localStorage.setItem("token", res.data.token);
+         // dispatch({type:"login", payload: res.data})
         })
-        .then(()=>{
-          dispatch(authActions.login())
-        })
+        // .then(()=>{
+        //   dispatch(authActions.login())
+        // })
         .then(()=>{
             navigate("/allblogs");
         })

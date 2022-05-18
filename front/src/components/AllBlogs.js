@@ -1,11 +1,14 @@
 import React, { useEffect, useState} from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
 
 function AllBlogs() {
     // const id = localStorage.getItem("user")
     const [blogs, setBlogs] = useState(); 
-   
+    const [data, setData] = useState()
+
+    const user = useSelector((state)=> state.user); 
 
     useEffect(() =>{
         axios
@@ -13,6 +16,7 @@ function AllBlogs() {
         .then((res)=>{
             console.log(res.data)
             setBlogs(res.data)
+            setData(res.data)
         })
         .catch(err=>{
             console.log(err)
@@ -20,7 +24,8 @@ function AllBlogs() {
     }, [])
 
     console.log(blogs)
-    
+    console.log(data)
+
   return (
   
     <div className="relative max-w-7xl mx-auto">
@@ -47,7 +52,7 @@ function AllBlogs() {
                   <div className="flex-shrink-0">
                     <a href={'#'}>
                       <span className="sr-only">{blog.name}</span>
-                    {/* <img className="h-12 w-12 rounded-full" src={blog.user.picture} alt="" />  */}
+                    <img className="h-12 w-12 rounded-full" src={user.picture} alt="" /> 
                      </a>  
                   </div>
                   <div className="ml-0">

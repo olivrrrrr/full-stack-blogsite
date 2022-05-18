@@ -12,6 +12,7 @@ function Navbar() {
   // const userID = localStorage.getItem("user"); 
   const [username, setUsername] = useState('')
 
+
   useEffect(()=>{
     if(user !== null ){
     axios
@@ -59,7 +60,9 @@ function Navbar() {
         {isLoggedIn && 
         <div>
             <Link to={`user/${user}`}>
-                {username}
+                {/* {user.picture} */}
+              <img className="h-12 w-12 rounded-full" src={user.picture} alt="" /> 
+
             </Link> 
             <Link 
             onClick={()=>dispatch(authActions.logout())}
