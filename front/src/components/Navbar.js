@@ -10,17 +10,17 @@ function Navbar() {
   const user = useSelector(state => state.user)
   console.log(user);
   // const userID = localStorage.getItem("user"); 
-  const [username, setUsername] = useState('')
+ // const [username, setUsername] = useState('')
 
 
-  useEffect(()=>{
-    if(user !== null ){
-    axios
-      .get(`http://localhost:3002/api/users/${localStorage.getItem('user')}`)
-      .then(res=>{setUsername(res.data.username)})
-      .catch(err=>console.log(err))
-    }
-  }, [])
+  // useEffect(()=>{
+  //   if(user !== null ){
+  //   axios
+  //     .get(`http://localhost:3002/api/users/${localStorage.getItem('user')}`)
+  //     .then(res=>{setUsername(res.data.username)})
+  //     .catch(err=>console.log(err))
+  //   }
+  // }, [])
 
   return (
     <nav className="flex justify-between items-center h-16 bg-white relative shadow-sm font-mono">
@@ -58,10 +58,10 @@ function Navbar() {
           </Link> 
         } */}
         {isLoggedIn && 
-        <div>
+        <div >
             <Link to={`user/${user}`}>
-                {/* {user.picture} */}
-              <img className="h-12 w-12 rounded-full" src={user.picture} alt="" /> 
+                {user.username}
+              {/* <img className="h-12 w-12 rounded-full" src={user.picture} alt="" />  */}
 
             </Link> 
             <Link 
