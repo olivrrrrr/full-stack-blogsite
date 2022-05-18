@@ -22,7 +22,7 @@ loginRouter.post('/', async (req, res) => {
         const token = jwt.sign({id: existingUser._id, username: existingUser.username }, process.env.JWT_SECRET)
         console.log(token)
         console.log(existingUser)
-        res.status(200).json({message: "Login succesful", user: existingUser, token:token})
+        res.status(200).json({ user: existingUser, token: token})
     } else {
         return res.status(404).json({status : 'User does not exist !'})
     }

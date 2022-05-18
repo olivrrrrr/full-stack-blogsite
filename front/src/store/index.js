@@ -23,17 +23,22 @@ const authSlice = createSlice({
     name: "auth", 
     initialState: {
       user : null, 
-      isLoggedIn: false 
+      isLoggedIn: false ,
+      token: null
     }, 
     reducers: {
       login : (state, action) => {
         state.user = action.payload.user;
         state.isLoggedIn = true;
-        console.log(state.user)
+        // state.token = action.payload.token;
+        console.log(state.token)
       },
       logout : (state) => {
         state.user = null;
         state.isLoggedIn = false;
+        // state.token = null; 
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
         console.log(state.user);
       },
     },

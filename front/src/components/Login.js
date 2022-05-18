@@ -64,11 +64,11 @@ function Login() {
 
         axios.post("http://localhost:3002/api/login", user)
         .then((res)=>{
-          localStorage.setItem("user", res.data.user._id);
-          localStorage.setItem("userObject", JSON.stringify(res.data));
-          dispatch(authActions.login(res.data))
+          // localStorage.setItem("user", res.data.user._id);
           localStorage.setItem("token", res.data.token);
-         // dispatch({type:"login", payload: res.data})
+          console.log(res.data.token)
+          // localStorage.setItem("userObject", JSON.stringify(res.data));
+          dispatch(authActions.login(res.data))
         })
         // .then(()=>{
         //   dispatch(authActions.login())
