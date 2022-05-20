@@ -64,7 +64,7 @@ function Login() {
 
         axios.post("http://localhost:3002/api/login", user)
         .then((res)=>{
-          // localStorage.setItem("user", res.data.user._id);
+          localStorage.setItem("user", res.data.user._id);
           localStorage.setItem("token", res.data.token);
           console.log(res.data.token)
           // localStorage.setItem("userObject", JSON.stringify(res.data));
