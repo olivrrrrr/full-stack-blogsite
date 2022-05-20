@@ -10,8 +10,14 @@ import { AiFillDelete } from "react-icons/ai"
 function IndividualBlog() {
 
     const [individualBlog, setIndividualBlog ] = useState(''); 
-    const [editMode, Edit] = useState(false); 
+    const [editMode, setEditMode] = useState(false); 
     const [username, setUsername] = useState('');
+    const [title, setTitle] = useState(''); 
+
+    const [content, setContent] = useState(''); 
+    const [picture, setPicture] = useState(''); 
+    const [summary, setSummary] = useState(''); 
+
    
     const location = useLocation();
     const navigate = useNavigate(); 
@@ -22,9 +28,15 @@ function IndividualBlog() {
     useEffect(()=>{
         axios
             .get(`http://localhost:3002/api/blogs/${path}`)
-            .then(res=>setIndividualBlog(res.data)); 
-    }, [])
+            .then(res=>{
+              // console.log(res.data.title)
+              setTitle(res.data.title)
+              setContent(res.data.content)
+              setIndividualBlog(res.data)
+            }); 
+    }, [path])
 
+  
    
     // const handleDelete = (e) => {
     //   e.preventDefault(); 
@@ -32,66 +44,111 @@ function IndividualBlog() {
     //    .then(()=>navigate("http://localhost:3000/allblogs")
     // }
 
+    // }
+
     const deleteRequest = async () => {
         const res = await axios.delete(`http://localhost:3002/api/blogs/${path}`).catch(err=>console.log(err)); 
         const data = await res.data;
+        return data; 
+    }
+
+    const updateRequest = async () => {
+      await axios.put(`http://localhost:3002/api/blogs/edit/${individualBlog._id}`, { title: title, content: content })   
+      .catch(err=>console.log(err)); 
+    
     }
 
     const handleDelete = () => {
-          //  axios.delete(`http://localhost:3002/api/blogs/${path}`,
-          //  { data: { username: user.username }})
           deleteRequest().then(()=>navigate("/allblogs"))
-          
     }
 
-    console.log(individualBlog)
+    const handleUpdate = (e) => {
+     e.preventDefault(); 
+     updateRequest()
+     setEditMode(false);
+    }
+
+    const handleEdit = () =>{
+      
+      setEditMode(true); 
+    }
+  //  console.log(individualBlog)
   return (
-  
+    
       <div className="relative px-4 mt-10 sm:px-6 lg:px-8 font-mono">
-        <div className='flex-shrink-0 aspect-w-16 aspect-h-9'>
+       {editMode ?  
+
+       <>
+       <div className='flex-shrink-0 aspect-w-16 aspect-h-9'>
             <img className="h-auto w-64  md:w-1/2 md:h-96 rounded-lg object-cover m-auto" src={individualBlog.picture} alt="" />
         </div>
         <div className="text-lg max-w-prose mx-auto">
-          <h1>
-            <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-              {individualBlog.title}
-              <AiFillEdit />
-              
-              <AiFillDelete onClick={handleDelete}/>
-            </span>
-             <span className=" md:flex block text-base text-center text-orange-600 font-semibold tracking-wide space-between gap-x-96 uppercase">
+            <div className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+               <input type="text" placeholder="Title..." value={title} onChange={(e)=>{setTitle(e.target.value)}} className="w-full border-none focus:outline-none text-4xl" />
+              <div className='inline-block sm:w-full'>
+                    {user.username == individualBlog.author ? 
+                      <div className='flex'>
+                          <AiFillEdit onClick={handleUpdate} />
+                          <AiFillDelete color="red" onClick={handleDelete}/>
+                    </div> : <></>}
+              </div>
+            </div>
+      
+             <div className=" md:flex block text-base text-center text-orange-600 font-semibold tracking-wide space-between gap-x-96 uppercase">
               <p> Author: {individualBlog.author}</p>
               <p>{new Date(individualBlog.date).toDateString()}</p>
-            </span>
-          </h1>
-          <p className="mt-8 text-xl text-gray-500 leading-8">
+            </div>
+          <div className="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto">
+              <textarea type="text" placeholder='What is on your mind..?' value={content} onChange={(e)=>{setContent(e.target.value)}} className="w-full h-96 border-none focus:outline-none text-2xl"/> 
+          </div>
+          <button onClick={handleUpdate}>
+            Update
+          </button>
+        </div> 
+      </>
+          :
+       <>
+       <div className='flex-shrink-0 aspect-w-16 aspect-h-9'>
+            <img className="h-auto w-64  md:w-1/2 md:h-96 rounded-lg object-cover m-auto" src={individualBlog.picture} alt="" />
+        </div>
+        <div className="text-lg max-w-prose mx-auto">
+            <div className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+              <h1>{title}</h1>
+              <div className='inline-block sm:w-full'>
+                    {user.username == individualBlog.author ? 
+                      <div className='flex'>
+                          <AiFillEdit onClick={handleEdit} />
+                          <AiFillDelete color="red" onClick={handleDelete}/>
+                    </div> : <></>}
+              </div>
+            </div>
+      
+             <div className=" md:flex block text-base text-center text-orange-600 font-semibold tracking-wide space-between gap-x-96 uppercase">
+              <p> Author: {individualBlog.author}</p>
+              <p>{new Date(individualBlog.date).toDateString()}</p>
+            </div>
+
+          {/* <p className="mt-8 text-xl text-gray-500 leading-8">
             Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget
             aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend
             egestas fringilla sapien.
               Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget
             aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend
             egestas fringilla sapien.
-          </p>
+          </p> */}
           <div className="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto">
-          <p>
+          {/* <p>
             Faucibus commodo massa rhoncus, volutpat. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra
             tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim.
              Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget
             aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend
             egestas fringilla sapien.
-          </p>
+          </p> */}
+          <p>{content}</p>
           </div>
-        </div>
-      </div>
-    // <div className='m-10 grid'>
-    //      <img className="h-96 w-1/2 rounded-lg object-cover m-auto" src={individualBlog.picture} alt="" />
-    //      <p className=" text-4xl text-center">{individualBlog.title}</p>
-    //      <div className='justify-center flex mx-96 space-x-96 '>
-    //             <p >Author: {individualBlog.author}</p>
-    //             <p>{new Date(individualBlog.date).toDateString()}</p>
-    //      </div>
-    //      <p className='m-auto mt-10 w-1/2'>{individualBlog.content}</p>
-    // </div>
+        </div> 
+       </>}
+    </div>
   )
 }
 
