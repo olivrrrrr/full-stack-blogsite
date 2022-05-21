@@ -47,23 +47,23 @@ return (
                     <div className="md:flex items-center mt-12">
                         <div className="w-full md:w-1/2 flex flex-col">
                             <label className="font-semibold leading-none">Title</label>
-                            <input type="text" value={title} onChange={(e)=>{setTitle(e.target.value)}} className="leading-none text-gray-900 p-3 focus:outline-none focus:border-orange-500 mt-4 bg-orange-100 border rounded border-gray-200" />
+                            <input type="text" value={title} onChange={(e)=>{setTitle(e.target.value)}} className="leading-none text-gray-900 p-3 focus:outline-none focus:border-orange-500 mt-4 bg-white-100 border rounded border-gray-200" />
                         </div>
                         <div className="w-full md:w-1/2 flex flex-col md:ml-6 md:mt-0 mt-4">
                             <label className="font-semibold leading-none">Summary</label>
-                            <input type="text" value={summary} onChange={(e)=>setSummary(e.target.value)} className="leading-none text-gray-900 p-3 focus:outline-none focus:border-orange-500 mt-4 bg-orange-100 border rounded border-gray-200"/>
+                            <input type="text" value={summary} onChange={(e)=>setSummary(e.target.value)} className="leading-none text-gray-900 p-3 focus:outline-none focus:border-orange-500 mt-4 bg-white-100 border rounded border-gray-200"/>
                         </div>
                     </div>
                     <div className="md:flex items-center mt-8">
                         <div className="w-full flex flex-col">
                             <label className="font-semibold leading-none">Picture</label>
-                            <input type="text" value={picture} onChange={(e)=>{setPicture(e.target.value)}} className="leading-none text-gray-900 p-3 focus:outline-none focus:border-orange-500 mt-4 bg-orange-100 border rounded border-gray-200"/>
+                            <input type="text" value={picture} onChange={(e)=>{setPicture(e.target.value)}} className="leading-none text-gray-900 p-3 focus:outline-none focus:border-orange-500 mt-4 bg-white-100 border rounded border-gray-200"/>
                         </div>
                     </div>
                     <div>
                         <div className="w-full flex flex-col mt-8">
                             <label className="font-semibold leading-none">Content</label>
-                            <textarea type="text" value={content} onChange={(e)=>{setContent(e.target.value)}} className="h-40 text-base leading-none text-gray-900 p-3 focus:oultine-none focus:border-orange-500 mt-4 bg-orange-100 border rounded border-gray-200"></textarea>
+                            <textarea type="text" value={content} onChange={(e)=>{setContent(e.target.valvalue)}} className="h-40 text-base leading-none text-gray-900 p-3 focus:oultine-none focus:border-orange-500 mt-4 bg-white-100 border rounded border-gray-200"></textarea>
                         </div>
                     </div>
                     <div className="flex items-center justify-center w-full">
