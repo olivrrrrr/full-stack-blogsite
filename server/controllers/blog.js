@@ -46,7 +46,7 @@ blogRouter.put('/edit/:id', async (req, res) => {
       content
     })
     if(blog && author === undefined){
-      res.json("Blog updated"); 
+      res.json({blog}); 
     }  else if(blog && author !== undefined) {
       res.status(400).json("This attribute cannot be changed")
     } else {

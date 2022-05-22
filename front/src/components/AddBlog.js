@@ -62,8 +62,8 @@ return (
                     </div>
                     <div>
                         <div className="w-full flex flex-col mt-8">
-                            <label className="font-semibold leading-none">Content</label>
-                            <textarea type="text" value={content} onChange={(e)=>{setContent(e.target.valvalue)}} className="h-40 text-base leading-none text-gray-900 p-3 focus:oultine-none focus:border-orange-500 mt-4 bg-white-100 border rounded border-gray-200"></textarea>
+                            <label className="font-semibold leading-none ">Content</label>
+                            <textarea type="text" value={content} onChange={(e)=>{setContent(e.target.valvalue)}} className="h-40  leading-none text-gray-900 p-3 focus:outline-none focus:border-orange-500 mt-4 bg-white-100 border rounded border-gray-200"></textarea>
                         </div>
                     </div>
                     <div className="flex items-center justify-center w-full">
